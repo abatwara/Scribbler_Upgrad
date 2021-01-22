@@ -1,0 +1,20 @@
+.container-fluid{
+    background: url("../images/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.home-container{
+    height: 70vh;
+}
+
+#viewAllPosts, #btnCreatePost {
+    margin: 10px;
+    padding: 10px 25px;
+}
+
+.new-post-modal {
+    max-width: 80% !important;
+}
