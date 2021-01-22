@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Post - Scribbler</title>
+
+    <!-- Font Awesome CDN here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Google Fonts file here -->
+    <link href="https://fonts.googleapis.com/css?family=Montez&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+
+    <!-- JQuery CDN for Bootstrap support -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap files here -->
+    <link href="../styles/bootstrap.min.css" rel="stylesheet">
+    <script src="../scripts/bootstrap.min.js"></script>
+    
+     <!-- All local CSS/JS files here -->
+     <link href="../styles/common.css" rel="stylesheet">
+     <link href="../styles/post.css" rel="stylesheet"> 
+     <script src="../scripts/post.js"></script>
+
+</head>
+
+<body onload="updatePostContent()">
+    <div class="container-fluid min-vh-100">
+        <!-- code for header here -->
+        <header>
+            <div class="row">
+                <div class="col">
+                    <h1 class="header-branding">ScriBBler</h1>
+                    <h2 class="subheader-branding">Explore, Imagine, Create</h2>    
+                </div>
+
+                <div id="header-buttons" class="col">
+                    <button id="btnSignIn" class="btn-primary float-right btn-flat" data-toggle="modal" data-target="#signInModal">Sign In</button>
+                    <button id="btnSignUp" class="btn-primary float-right btn-flat" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+                </div>
+            </div>                
+        </header>
+
+        <div id="post-container">
+            <div id="post-title"></div>
+            <div class="row post-control align-items-center justify-content-center">
+                <div id="post-author" class="col"></div>
+                <div class="col">
+                    <button id="editPostButton" type="button" class="btn btn-danger btn-flat" onclick="editPost()">Edit   <i class="fa fa-edit"></i></button>
+                    <button id="savePostButton" type="button" class="btn btn-danger btn-flat" onclick="savePost()">Save   <i class="fa fa-floppy-o" aria-hidden="true"></i> </button>
+                </div>
+            </div>
+            <div id="post-content"></div>
+            <div class="likePostSection">    
+                <button id="likePostButton" class="btn btn-danger btn-flat" onclick="postLiked()"><i class="fa fa-thumbs-up"></i>   Like</button> 
+                <div id="likeCount">Be the first one to like this!</div>
+            </div>
+            <div class="postCommentSection">
+                <div class="form-group">
+                    <textarea id="postComment" class="form-control" rows="4" cols="50%" placeholder="Leave a comment..." name="comment" value=""></textarea>
+                </div>
+                <button id="addList" class="btn btn-danger btn-flat" onclick="addComments(postComment)">Comment</button>
+                <div class="comments-title">All Comments</div>
+                <div id="allComments"></div>
+            </div>
+        </div>
+    </div>
+
+<!-- SignUp Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signUpModalLabel">Get Started</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="nameInput">Name</label>
+                        <input type="text" class="form-control" id="nameInput" placeholder="Enter your name" required>
+                    </div>    
+                    <div class="form-group">
+                        <label for="usernameInput">Username</label>
+                        <input type="text" class="form-control" id="usernameInput" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordInput">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPasswordInput">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Re-enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-full">Sign Up</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SignIn Modal -->
+<div class="modal fade middle" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="signInModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signInModalLabel">Welcome Back!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="usernameInput">Username</label>
+                        <input type="text" class="form-control" id="usernameInput" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordInput">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-full">Sign In</button>
+                    <div class="modal-footer align-items-center justify-content-center">
+                        <span class="font-weight-bold">Not a member? <a href="#signUpModal" data-dismiss="modal" data-toggle="modal" data-target="#signUpModal">Sign Up</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
